@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mastrading Case Study | Safeeda</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            background-color: #000000;
+            color: #e2e2e2;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .torch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle 400px at var(--x, 50%) var(--y, 50%), rgba(67, 76, 231, 0.08), transparent 80%);
+            z-index: 9999999;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #bfc2ff;
+            box-shadow: 0 0 20px rgba(67, 76, 231, 0.15);
+        }
+
+        .hero-float {
+            transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .hero-float:hover {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+
+        .ping-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #bfc2ff;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dark": "#0D0D0D",
+                        "secondary": "#d8b9ff",
+                        "on-tertiary-fixed-variant": "#6c3923",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00006e",
+                        "inverse-surface": "#e2e2e2",
+                        "background": "#121414",
+                        "surface-tint": "#bfc2ff",
+                        "primary-fixed-dim": "#bfc2ff",
+                        "primary-fixed": "#e0e0ff",
+                        "surface-container-low": "#1a1c1c",
+                        "surface-container-lowest": "#0c0f0f",
+                        "surface-bright": "#37393a",
+                        "secondary-fixed-dim": "#d8b9ff",
+                        "error-container": "#93000a",
+                        "glass-fill": "rgba(255, 255, 255, 0.03)",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#121414",
+                        "tertiary": "#ffb597",
+                        "surface-container-highest": "#333535",
+                        "primary-container": "#434ce7",
+                        "on-error": "#690005",
+                        "on-surface": "#e2e2e2",
+                        "tertiary-container": "#8c533b",
+                        "surface": "#121414",
+                        "on-secondary-fixed-variant": "#6200bc",
+                        "surface-container-high": "#282a2b",
+                        "primary": "#bfc2ff",
+                        "on-secondary": "#450086",
+                        "on-primary": "#0000ac",
+                        "on-background": "#e2e2e2",
+                        "secondary-fixed": "#eddcff",
+                        "on-tertiary": "#51230f",
+                        "on-tertiary-container": "#ffd5c5",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-variant": "#333535",
+                        "surface-container": "#1e2020",
+                        "tertiary-fixed-dim": "#ffb597",
+                        "inverse-primary": "#3f48e3",
+                        "on-primary-fixed-variant": "#2128cc",
+                        "outline-variant": "#454555",
+                        "on-secondary-fixed": "#290055",
+                        "on-primary-container": "#dbdbff",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#d5b5ff",
+                        "glow-primary": "rgba(67, 76, 231, 0.15)",
+                        "on-tertiary-fixed": "#360f01",
+                        "pitch-black": "#000000",
+                        "outline": "#908fa1",
+                        "secondary-container": "#6e06d0",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "on-surface-variant": "#c6c5d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "section-padding": "96px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "display-2xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "display-2xl": ["96px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-body-md text-on-surface selection:bg-primary selection:text-pitch-black overflow-x-hidden">
+    <div class="torch-overlay" id="torch"></div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-glass-fill backdrop-blur-xl border-b border-glass-border">
+        <div
+            class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <span class="font-display-lg text-[24px] md:text-headline-lg font-bold text-primary tracking-tight"><a
+                    href="index.html">Safeeda</a></span>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-" href="#">Works</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="index.html#about">About</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="Safeeda - CV.pdf" target="_blank">Resume</a>
+            </div>
+            <button id="menuBtn" class="md:hidden text-on-surface">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+    <!-- Mobile menu -->
+    <div id="mobileMenu"
+        class="hidden md:hidden fixed top-20 left-0 w-full bg-glass-fill backdrop-blur-[20px] border-b border-glass-border z-40">
+
+        <div class="flex flex-col p-6 gap-6">
+            <a href="index.html">Home</a>
+            <a href="#works" class="text-on-surface-variant text-primary">Works</a>
+            <a href="index.html#about" class="text-on-surface-variant">About</a>
+            <a href="Safeeda - Web & UIUX Designer - CV.pdf" target="_blank" class="text-on-surface-variant">
+                Resume
+            </a>
+        </div>
+    </div>
+    <main class="relative z-20 pt-20">
+        <!-- Hero Section -->
+        <section
+            class="w-full py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-7 space-y-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-glass-border bg-glass-fill">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">CASE
+                            STUDY</span>
+                    </div>
+                    <h1 class="font-display-2xl text-[48px] md:text-display-2xl leading-tight">Mas Trading</h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Building a modern wholesale e-commerce experience for bicycles, accessories, and parts.
+                    </p>
+                </div>
+                <div class="md:col-span-4">
+                    <div class="lg:col-span-4 reveal-element delay-300">
+                        <div class="glass-card p-8 rounded-2xl sticky top-32 space-y-8 mt-1">
+                            <div class="grid grid-cols-1 gap-6">
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Role</p>
+                                    <p class="text-on-surface font-medium">WordPress Developer</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Platform</p>
+                                    <p class="text-on-surface font-medium">Web (Wholesale E-Commerce)</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Industry</p>
+                                    <p class="text-on-surface font-medium">Cycling / Wholesale</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Tools</p>
+                                    <p class="text-on-surface font-medium">WordPress, WooCommerce</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="relative rounded-xl overflow-hidden glass-card group">
+                        <img alt="DeepSlice Project Preview"
+                            class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+                            data-alt="A futuristic medical interface screen displaying complex 3D human brain scans in deep indigo and electric blue tones. The UI is minimalist with thin glass-like borders and floating technical data points. The lighting is cinematic, high-contrast, with a deep black background and luminous technical elements that evoke a sense of high-performance luxury craftsmanship."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVQcvbYC5QqyL3of70wg5LolBe7b2xxKxTbvWFr9LWG9N2BGtXM2l79Tbnon4Ngi-Bo8FontgdN7yRIeP1Ji5UCv1jtgw5E96IcUM4smUdO1HUgZOkRPFzUi5xuM7M7vcnwTThCMCgJDjfWQjZ2wfhT8ePyIc5IEaZVqB2F3dlk7lrpDTV9-7usp2FvnmMrFKNhPxLruGENG-FQ-jDOlZ2YCRp80LMLAz5E14v5IJHTWeLGEgIMgXMSTpiXsu6a15PBNQvYbuREoa5" />
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        <!-- Project Overview -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <div class="lg:col-span-8 space-y-8 reveal-element">
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Overview</h2>
+                    <p class="font-body-lg text-on-surface-variant leading-relaxed text-xl">
+                        MAS Trading is a specialized bicycle platform catering to enthusiasts and wholesalers who demand
+                        high-performance gear and personalized service. The project aimed to transform their traditional
+                        sales approach into a streamlined digital experience that captures the thrill of cycling while
+                        maintaining a professional B2B relationship.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 pt-8">
+                        <div class="space-y-4">
+                            <h4
+                                class="font-label-md text-on-surface uppercase tracking-widest border-l-2 border-primary pl-4">
+                                The Challenge</h4>
+                            <p class="text-on-surface-variant">The existing process relied on manual communication
+                                friction, outdated product discovery, and lacked a streamlined inquiry process.
+                                Customers struggled with inconsistent product presentation and poor mobile browsing
+                                on-the-go.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h4
+                                class="font-label-md text-on-surface uppercase tracking-widest border-l-2 border-primary pl-4">
+                                The Solution</h4>
+                            <p class="text-on-surface-variant">A minimalist, product-first interface that bridges the
+                                gap between a technical catalog and a luxury showroom, empowered by a conversational
+                                inquiry system via WhatsApp Integration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- My Role & Responsibilities -->
+        <section class="py-section-padding bg-surface-container-low border-y border-glass-border">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div class="max-w-3xl mb-16 reveal-element">
+                    <h2 class="font-headline-lg text-headline-lg text-primary mb-4">My Role &amp; Responsibilities</h2>
+                    <p class="text-on-surface-variant">An end-to-end execution focusing on both design aesthetics and
+                        technical robustness.</p>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-8 reveal-element">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">architecture</span>
+                        </div>
+                        <p class="font-label-md">Planning &amp; IA</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">code</span>
+                        </div>
+                        <p class="font-label-md">WordPress Dev</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">shopping_bag</span>
+                        </div>
+                        <p class="font-label-md">WooCommerce Setup</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">chat</span>
+                        </div>
+                        <p class="font-label-md">WhatsApp Integration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Solution Showcase -->
+        <section
+            class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div
+                        class="absolute -z-10 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] -left-20 -top-20">
+                    </div>
+                    <img class="rounded-2xl border border-glass-border shadow-2xl transform -rotate-2 hover:rotate-0 transition-all duration-700"
+                        src="images/mastrading-solution.png" />
+                </div>
+                <div class="order-1 lg:order-2 space-y-8">
+                    <h2 class="font-headline-lg text-headline-lg text-primary">The Solution</h2>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                                <span class="material-symbols-outlined text-primary">design_services</span>
+                            </div>
+                            <div>
+                                <h4 class="font-label-md text-on-surface">Minimalist Interface</h4>
+                                <p class="text-on-surface-variant text-body-md">A clean, focused design that lets the
+                                    products shine, removing digital clutter to focus on the bikes.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                                <span class="material-symbols-outlined text-primary">forum</span>
+                            </div>
+                            <div>
+                                <h4 class="font-label-md text-on-surface">Direct WhatsApp Ordering</h4>
+                                <p class="text-on-surface-variant text-body-md">Replacing traditional checkout with a
+                                    conversational inquiry system, mimicking the high-touch boutique experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Key Features (Bento Grid) -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="font-headline-lg text-headline-lg text-primary">Key Features</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto">A modular approach to e-commerce, built for
+                    performance and scale.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[800px]">
+                <!-- Bento 1: Catalog -->
+                <div
+                    class="md:col-span-8 glass-card rounded-2xl p-8 flex flex-col justify-between overflow-hidden group">
+                    <div>
+                        <h3 class="font-headline-lg text-[28px] mb-2">Product Catalog</h3>
+                        <p class="text-on-surface-variant max-w-md">Smart filtering and categorization for thousands of
+                            SKUs, powered by WooCommerce technical architecture.</p>
+                    </div>
+                    <div class="mt-8 transition-transform group-hover:translate-y-[-10px] duration-500">
+                        <img class="rounded-xl border border-glass-border"
+                            src="images/mastarding-products-catalogue.png" />
+                    </div>
+                </div>
+                <!-- Bento 2: Detail Page -->
+                <div class="md:col-span-4 glass-card rounded-2xl p-8 flex flex-col gap-6 group">
+                    <span class="material-symbols-outlined text-primary text-[40px]">zoom_in</span>
+                    <h3 class="font-headline-lg text-[24px]">Product Details</h3>
+                    <p class="text-on-surface-variant">High-resolution imagery with interactive specs, designed to
+                        convert the most demanding cycling technical specialists.</p>
+                </div>
+                <!-- Bento 3: WhatsApp -->
+                <div class="md:col-span-4 glass-card rounded-2xl p-8 border-primary/30 bg-primary/5 group relative">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="font-headline-lg text-[24px] mb-4">WhatsApp Ordering</h3>
+                    <p class="text-on-surface-variant">Instant connection between product viewing and personalized
+                        consultation, boosting conversion by 45%.</p>
+                </div>
+                <!-- Bento 4: Mobile -->
+                <div class="md:col-span-8 glass-card rounded-2xl p-8 flex items-center gap-12 overflow-hidden group">
+                    <div class="flex-1">
+                        <h3 class="font-headline-lg text-[28px] mb-2">Mobile First</h3>
+                        <p class="text-on-surface-variant">Optimized for browsing on the trail or in the showroom, with
+                            lightning-fast load times.</p>
+                    </div>
+                    <div class="hidden lg:block shrink-0 rotate-12 group-hover:rotate-0 transition-all duration-500">
+                        <div
+                            class="w-48 h-96 bg-surface-container-highest rounded-[32px] border-[6px] border-surface-bright p-2 overflow-hidden">
+                            <div class="bg-pitch-black w-full h-full rounded-[24px] p-4 flex flex-col gap-2">
+                                <div class="h-4 w-20 bg-primary/30 rounded-full"></div>
+                                <div class="h-32 w-full bg-glass-fill rounded-lg"></div>
+                                <div class="h-2 w-full bg-on-surface-variant/20 rounded-full"></div>
+                                <div class="h-2 w-3/4 bg-on-surface-variant/20 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Results -->
+        <section class="py-section-padding bg-pitch-black">
+            <div
+                class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto border border-glass-border rounded-3xl p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h2 class="font-headline-lg text-headline-lg text-primary mb-6">The Outcome</h2>
+                        <p class="text-on-surface-variant text-body-lg mb-8 leading-relaxed">
+                            The new MAS Trading platform redefined the company's digital footprint. By bridging the gap
+                            between a technical catalog and a luxury showroom, we created a tool that empowers both the
+                            customer and the sales team.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="glass-card p-6 rounded-xl flex items-center gap-4">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span class="font-body-md">Simplified Category Navigation</span>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl flex items-center gap-4">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span class="font-body-md">Integrated WhatsApp Sales CRM</span>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl flex items-center gap-4">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span class="font-body-md">Unified Digital Brand Standards</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="bg-surface-dark border-t border-glass-border w-full py-section-padding mt-20">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-gutter">
+                <div class="font-headline-lg text-headline-lg text-primary">Safeeda</div>
+                <p class="font-body-md text-body-md text-on-surface-variant">© 2026 Safeeda. All rights reserved.
+                </p>
+            </div>
+        </footer>
+        <script>
+            // Atmospheric Torch Effect
+            const torch = document.getElementById('torch');
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                torch.style.setProperty('--x', x + '%');
+                torch.style.setProperty('--y', y + '%');
+            });
+
+            // Simple smooth scroll reveal observer
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.glass-card').forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+                observer.observe(el);
+            });
+        </script>
+        <!-- Mobile-menu -->
+        <script>
+            const menuBtn = document.getElementById("menuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            menuBtn.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Safeeda | UI/UX Designer &amp; Web Designer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a2b",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#8c533b",
+                        "secondary-fixed": "#eddcff",
+                        "on-tertiary-container": "#ffd5c5",
+                        "surface-container-low": "#1a1c1c",
+                        "on-background": "#e2e2e2",
+                        "on-error": "#690005",
+                        "outline-variant": "#454555",
+                        "tertiary-fixed-dim": "#ffb597",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-container-lowest": "#0c0f0f",
+                        "secondary-fixed-dim": "#d8b9ff",
+                        "surface-container-highest": "#333535",
+                        "primary-container": "#434ce7",
+                        "on-primary": "#0000ac",
+                        "on-tertiary-fixed-variant": "#6c3923",
+                        "on-secondary-container": "#d5b5ff",
+                        "on-surface": "#e2e2e2",
+                        "surface": "#121414",
+                        "surface-container": "#1e2020",
+                        "tertiary-fixed": "#ffdbcd",
+                        "primary": "#bfc2ff",
+                        "pitch-black": "#000000",
+                        "on-secondary-fixed-variant": "#6200bc",
+                        "primary-fixed-dim": "#bfc2ff",
+                        "on-secondary-fixed": "#290055",
+                        "on-tertiary": "#51230f",
+                        "outline": "#908fa1",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#e0e0ff",
+                        "surface-dark": "#0D0D0D",
+                        "on-primary-fixed-variant": "#2128cc",
+                        "glass-fill": "rgba(255, 255, 255, 0.03)",
+                        "inverse-on-surface": "#2f3131",
+                        "secondary-container": "#6e06d0",
+                        "on-secondary": "#450086",
+                        "on-primary-container": "#dbdbff",
+                        "secondary": "#d8b9ff",
+                        "tertiary": "#ffb597",
+                        "surface-bright": "#37393a",
+                        "on-primary-fixed": "#00006e",
+                        "on-surface-variant": "#c6c5d8",
+                        "surface-tint": "#bfc2ff",
+                        "surface-dim": "#121414",
+                        "inverse-primary": "#3f48e3",
+                        "glow-primary": "rgba(67, 76, 231, 0.15)",
+                        "background": "#121414",
+                        "surface-variant": "#333535",
+                        "on-tertiary-fixed": "#360f01"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-padding": "96px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px",
+                        "unit": "8px",
+                        "margin-desktop": "80px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-2xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-2xl": ["96px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #e2e2e2;
+            cursor: default;
+        }
+
+        .torch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle 400px at var(--x) var(--y), rgba(67, 76, 231, 0.08), transparent 80%);
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            border-color: #434ce7;
+            box-shadow: 0 0 30px rgba(67, 76, 231, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .image-tilt {
+            transition: transform 0.6s ease;
+            transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+        }
+
+        .glass-card:hover .image-tilt {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.02);
+        }
+
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-scroll {
+            animation: bounce-slow 2s infinite ease-in-out;
+        }
+
+        .noise-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(67, 76, 231, 0.1) 0%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body class="font-body-md overflow-x-hidden">
+    <div class="noise-texture"></div>
+    <div class="torch-overlay" id="torch"></div>
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-glass-fill backdrop-blur-[20px] border-b border-glass-border">
+        <div
+            class="max-w-container-max mx-auto h-20 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+            <span class="text-headline-lg font-headline-lg tracking-tighter text-on-surface text-primary">Safeeda</span>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Home</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="#works">Works</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="#about">About</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="Safeeda - Web & UIUX Designer - CV.pdf" target="_blank">Resume</a>
+                <!-- <a class="px-6 py-2 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-full hover:scale-105 active:scale-95 transition-transform"
+                    href="#">Hire Me</a> -->
+            </div>
+            <!-- <button class="md:hidden text-on-surface">
+                <span class="material-symbols-outlined">menu</span>
+            </button> -->
+            <button id="menuBtn" class="md:hidden text-on-surface">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+    <!-- Mobile menu -->
+    <div id="mobileMenu"
+        class="hidden md:hidden fixed top-20 left-0 w-full bg-glass-fill backdrop-blur-[20px] border-b border-glass-border z-40">
+
+        <div class="flex flex-col p-6 gap-6">
+            <a href="#" class="text-primary">Home</a>
+            <a href="#works" class="text-on-surface-variant">Works</a>
+            <a href="#about" class="text-on-surface-variant">About</a>
+            <a href="Safeeda - CV.pdf" target="_blank" class="text-on-surface-variant">
+                Resume
+            </a>
+        </div>
+    </div>
+    <main class="relative z-10 pt-20">
+        <!-- Hero Section -->
+        <section class="min-h-[700px] flex flex-col items-center justify-center text-center px-margin-mobile relative">
+            <div class="hero-glow"></div>
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <!-- <span
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container/10 border border-primary/20 text-primary font-label-sm text-label-sm">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    Available for freelance projects
+                </span> -->
+                <!-- <h1 class="font-display-2xl text-headline-lg-mobile md:text-display-2xl text-on-surface leading-tight">
+                    Hi, I'm a <span class="text-primary"> Web & <br>UI/UX Designer</span>
+                </h1> -->
+                <h1
+                    class="font-display-2xl text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-on-surface leading-none tracking-tight font-bold">
+                    Hi, I'm a <span class="text-primary">Web & <br>UI/UX Designer</span>
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    I'm a Web Designer and UI/UX Designer focused on creating intuitive, user-centered, and visually
+                    engaging digital
+                    products that solve real-world problems.
+                </p>
+            </div>
+            <div class="mt-20 flex flex-col items-center gap-4">
+                <span class="text-on-surface-variant font-label-sm text-label-sm">SCROLL TO EXPLORE</span>
+                <span class="material-symbols-outlined text-primary animate-scroll">keyboard_double_arrow_down</span>
+            </div>
+        </section>
+        <!-- Works Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-24"
+            id="works">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <!-- <h2 class="font-display-lg text-display-lg text-on-surface">Featured <span
+                        class="text-primary">Works</span></h2> -->
+                <h2 class="font-display-lg text-4xl md:text-7xl text-on-surface font-bold">
+                    Featured <span class="text-primary">Works</span>
+                </h2>
+                <!-- <p class="text-on-surface-variant font-body-md max-w-sm">A curated selection of digital experiences
+                    where strategy meets aesthetics.</p> -->
+            </div>
+            <!-- Project 1: Claimr -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-7 group">
+                    <div class="glass-card rounded-2xl overflow-hidden aspect-video relative">
+                        <img alt="Claimr Project" class="w-full h-full object-cover" src="images/claimr-thumb.png" />
+                    </div>
+                </div>
+                <div class="md:col-span-5 space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-primary font-label-md text-label-md tracking-widest">END-TO-END DIGITAL
+                            PRODUCT</span>
+                        <h3 class="text-headline-lg font-headline-lg text-on-surface">Claimr</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Research</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Website</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Dashboard</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Mobile
+                            App</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Prototype</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Usability
+                            Testing</span>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md">Built a complete claims platform with modern UI,
+                        smooth user flows, and responsive front-end for both website, dashboard and mobile app.</p>
+                    <a class="inline-flex items-center gap-2 text-primary font-label-md hover:gap-4 transition-all"
+                        href="claimr-case-study.html">
+                        View Case Study <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Project 2: Deepslice -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-5 md:order-1 order-2 space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-primary font-label-md text-label-md tracking-widest">PIZZA DELIVERY MOBILE
+                            APP</span>
+                        <h3 class="text-headline-lg font-headline-lg text-on-surface">Deepslice</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Research</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Planning</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Wireframes</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">UI
+                            Presentation</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">Prototype</span>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md">Transforming pizza ordering into a smooth and
+                        engaging mobile experience through intuitive design, streamlined workflows, and modern
+                        interactions.</p>
+                    <a class="inline-flex items-center gap-2 text-primary font-label-md hover:gap-4 transition-all"
+                        href="deepslice-case-study.html">
+                        View Case Study <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="md:col-span-7 md:order-2 order-1 group">
+                    <div class="glass-card rounded-2xl overflow-hidden aspect-video relative">
+                        <img alt="Deepslice Project" class=" w-full h-full object-cover image-tilt"
+                            src="images/deepslice-thumb.jpg" />
+                    </div>
+                </div>
+            </div>
+            <!-- Project 3: Mas Trading -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-7 group">
+                    <div class="glass-card rounded-2xl overflow-hidden aspect-video relative">
+                        <img alt="Mas Trading Project" class="w-full h-full object-cover image-tilt"
+                            src="images/mastrading-thumb.jpg" />
+                    </div>
+                </div>
+                <div class="md:col-span-5 md:order-1 order-2 space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-primary font-label-md text-label-md tracking-widest">E-COMMERCE
+                            DEVELOPMENT</span>
+                        <h3 class="text-headline-lg font-headline-lg text-on-surface">Mas Trading</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">WordPress</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">WooCommerce</span>
+                        <span
+                            class="px-3 py-1 bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface-variant border border-glass-border">WhatsApp
+                            API</span>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md">Built a modern e-commerce website from scratch for a
+                        bicycle wholesaler, focusing on easy product browsing and quick ordering via WhatsApp.</p>
+                    <a class="inline-flex items-center gap-2 text-primary font-label-md hover:gap-4 transition-all"
+                        href="mastrading-case-study.html">
+                        View Case Study <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- About Section -->
+        <section class="py-section-padding bg-surface-container-lowest relative overflow-hidden" id="about">
+            <div
+                class="max-w-container-max px-margin-mobile mx-auto md:px-margin-desktop grid grid-cols-1  gap-gutter items-center relative z-10">
+                <div class="space-y-8 text-center items-center justify-center  max-w-4xl mx-auto">
+                    <h2 class="font-display-lg text-4xl md:text-7xl text-on-surface font-bold">About <span
+                            class="text-primary">Me</span></h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                        I'm Safeeda, a Web and UI/UX Designer from India. Dedicated to crafting intuitive, visually
+                        refined, and centered digital experiences. With a solid understanding of design systems, user
+                        behavior, and interaction design, I create interfaces that are both functional and engaging.
+                    </p>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                        I blend creativity with strategic thinking to deliver impactful solutions. I thrive on
+                        transforming complex concepts into simple, elegant, and meaningful designs.
+                    </p>
+                    <div class="flex gap-gutter">
+                        <div class="glass-card p-8 rounded-2xl flex-1 text-center">
+                            <div class="text-headline-lg font-display-lg text-primary">10+</div>
+                            <div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">
+                                Projects Completed</div>
+                        </div>
+                        <div class="glass-card p-8 rounded-2xl flex-1 text-center">
+                            <div class="text-headline-lg font-display-lg text-primary">1+</div>
+                            <div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">
+                                Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="relative group hidden lg:block">
+                    <div
+                        class="absolute inset-0 bg-primary/20 blur-[100px] rounded-full scale-75 group-hover:scale-100 transition-transform duration-700">
+                    </div>
+                    <div class="glass-card p-4 rounded-3xl relative z-10">
+                        <img alt="Creative Space" class="rounded-2xl w-full h-[500px] object-cover"
+                            data-alt="A professional creative studio workspace with high-end dual monitors, mechanical keyboard, and minimalist aesthetics. The room is dimly lit with subtle electric blue LED backlighting that casts soft glows against dark grey walls. Elegant design tools and artifacts are placed precisely, reflecting a culture of craftsmanship and digital precision."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTxONPByFY8iz1UQh9gccXqFcaJmCPl027_WTB-a2lJFznLv6_0obh49LmaC95vn8UwQNBZrGuYbMucsJ2225FfluwqQwIBI7WHL2fzDk0GbqSVy-Hb5ooqhUPlAzb-u-Vkb9qi1Cn_rHmkWHGMahW1KPW-j3ies3iieVC7vSD7mOOA3TN7cI6rHdjEnFUTG2ipUlgUy65fGjhY7pn8CK9PWXorTjPMc5vX70TvzlPU7l18jQ42la6E4OP42o5-lzsIzBhcasWIi3c" />
+                    </div>
+                </div> -->
+            </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="py-section-padding px-margin-mobile relative">
+            <div
+                class="max-w-4xl mx-auto glass-card p-12 md:p-20 rounded-[40px] text-center space-y-8 overflow-hidden relative">
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
+                <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
+                <h2 class="text-headline-lg md:text-display-lg font-display-lg text-on-surface relative z-10">Let's
+                    Connect!
+                </h2>
+                <p class="text-body-lg font-body-lg text-on-surface-variant max-w-lg mx-auto relative z-10">
+                    Feel free to get in touch for collaborations or to just say hi!
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center relative z-10">
+                    <a href="mailto:safeedamt@gmail.com"
+                        class="px-10 py-4 bg-primary-container text-on-primary-container rounded-full font-label-md text-label-md hover:scale-105 transition-transform flex items-center gap-2">
+                        Get In Touch
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                    <button
+                        class="px-10 py-4 border border-glass-border rounded-full font-label-md text-label-md hover:bg-glass-fill transition-colors">
+                        <a href="Safeeda - Web & UIUX Designer - CV.pdf" target="_blank">Download CV</a>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-surface-dark border-t border-glass-border w-full py-section-padding mt-20">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-gutter">
+            <div class="font-headline-lg text-headline-lg text-primary">Safeeda</div>
+            <p class="font-body-md text-body-md text-on-surface-variant">© 2026 Safeeda. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script>
+        // Atmospheric Torch Effect
+        const torch = document.getElementById('torch');
+        window.addEventListener('mousemove', (e) => {
+            torch.style.setProperty('--x', e.clientX + 'px');
+            torch.style.setProperty('--y', e.clientY + 'px');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple Intersection Observer for Fade-In
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass-card, h2, .grid > div').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            observer.observe(el);
+        });
+    </script>
+    <!-- Mobile-menu -->
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    </script>
+</body>
+
+</html>

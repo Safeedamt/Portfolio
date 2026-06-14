@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Deepslice Case Study | Safeeda</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#6e06d0",
+                        "surface": "#121414",
+                        "surface-container-high": "#282a2b",
+                        "on-tertiary-fixed": "#360f01",
+                        "glass-fill": "rgba(255, 255, 255, 0.03)",
+                        "surface-tint": "#bfc2ff",
+                        "on-primary": "#0000ac",
+                        "outline": "#908fa1",
+                        "primary-container": "#434ce7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#290055",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#333535",
+                        "on-secondary": "#450086",
+                        "on-tertiary-fixed-variant": "#6c3923",
+                        "on-primary-container": "#dbdbff",
+                        "inverse-on-surface": "#2f3131",
+                        "inverse-surface": "#e2e2e2",
+                        "tertiary-fixed-dim": "#ffb597",
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#454555",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary": "#d8b9ff",
+                        "primary": "#bfc2ff",
+                        "background": "#121414",
+                        "surface-variant": "#333535",
+                        "on-background": "#e2e2e2",
+                        "surface-container-low": "#1a1c1c",
+                        "surface-dark": "#0D0D0D",
+                        "on-tertiary": "#51230f",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "on-surface": "#e2e2e2",
+                        "inverse-primary": "#3f48e3",
+                        "on-secondary-container": "#d5b5ff",
+                        "glow-primary": "rgba(67, 76, 231, 0.15)",
+                        "tertiary-container": "#8c533b",
+                        "secondary-fixed": "#eddcff",
+                        "on-tertiary-container": "#ffd5c5",
+                        "surface-bright": "#37393a",
+                        "secondary-fixed-dim": "#d8b9ff",
+                        "tertiary": "#ffb597",
+                        "surface-dim": "#121414",
+                        "surface-container-lowest": "#0c0f0f",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-fixed": "#00006e",
+                        "surface-container": "#1e2020",
+                        "on-primary-fixed-variant": "#2128cc",
+                        "on-surface-variant": "#c6c5d8",
+                        "primary-fixed-dim": "#bfc2ff",
+                        "pitch-black": "#000000",
+                        "on-secondary-fixed-variant": "#6200bc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "unit": "8px",
+                        "section-padding": "96px",
+                        "margin-mobile": "24px",
+                        "container-max": "1440px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "display-2xl": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "display-2xl": ["96px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #e2e2e2;
+            cursor: default;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #bfc2ff;
+            box-shadow: 0 0 15px rgba(67, 76, 231, 0.3);
+        }
+
+        .torch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle 400px at var(--x, 50%) var(--y, 50%), rgba(67, 76, 231, 0.08), transparent 80%);
+            z-index: 9999999999;
+        }
+
+        .float-rotate {
+            transform: perspective(1000px) rotateY(-3deg) rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+
+        .float-rotate:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .process-line {
+            background: linear-gradient(90deg, rgba(191, 194, 255, 0) 0%, #bfc2ff 50%, rgba(191, 194, 255, 0) 100%);
+        }
+    </style>
+</head>
+
+<body class="font-body-md text-body-md overflow-x-hidden">
+    <div class="torch" id="torch"></div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-glass-fill backdrop-blur-xl border-b border-glass-border">
+        <div
+            class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <span class="font-display-lg text-[24px] md:text-headline-lg font-bold text-primary tracking-tight"><a
+                    href="index.html">Safeeda</a></span>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-" href="#">Works</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="index.html#about">About</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300"
+                    href="Safeeda - Web & UIUX Designer - CV.pdf" target="_blank">Resume</a>
+            </div>
+            <button id="menuBtn" class="md:hidden text-on-surface">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+    <!-- Mobile menu -->
+    <div id="mobileMenu"
+        class="hidden md:hidden fixed top-20 left-0 w-full bg-glass-fill backdrop-blur-[20px] border-b border-glass-border z-40">
+
+        <div class="flex flex-col p-6 gap-6">
+            <a href="index.html">Home</a>
+            <a href="#works" class="text-on-surface-variant text-primary">Works</a>
+            <a href="index.html#about" class="text-on-surface-variant">About</a>
+            <a href="Safeeda - CV.pdf" target="_blank" class="text-on-surface-variant">
+                Resume
+            </a>
+        </div>
+    </div>
+    <main class="relative z-10 pt-20">
+        <!-- Hero Section -->
+        <section
+            class="w-full py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-7 space-y-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-glass-border bg-glass-fill">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">CASE
+                            STUDY</span>
+                    </div>
+                    <h1 class="font-display-2xl text-[48px] md:text-display-2xl leading-tight">Deepslice</h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Deepslice is a modern pizza delivery application designed to simplify online food ordering
+                        through a seamless and user-friendly mobile experience.
+                    </p>
+                </div>
+                <div class="md:col-span-4">
+                    <div class="lg:col-span-4 reveal-element delay-300">
+                        <div class="glass-card p-8 rounded-2xl sticky top-32 space-y-8 mt-1">
+                            <div class="grid grid-cols-1 gap-6">
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Role</p>
+                                    <p class="text-on-surface font-medium">UI/UX Designer</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Platform</p>
+                                    <p class="text-on-surface font-medium">Mobile App</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Industry</p>
+                                    <p class="text-on-surface font-medium">Food Delivery</p>
+                                </div>
+                                <div>
+                                    <p class="text-label-sm text-primary uppercase">Tools</p>
+                                    <p class="text-on-surface font-medium">Figma</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Overview Section -->
+        <section class="bg-surface-dark py-section-padding px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-gutter">
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg mb-8"> Project Overview </h2>
+                </div>
+                <div class="text-on-surface-variant font-body-lg text-body-lg leading-relaxed">
+                    <p class="mb-5">Deepslice is a pizza delivery mobile application designed to provide users with a
+                        seamless ordering experience. The app allows customers to browse menu items, customize pizzas,
+                        place orders, and track deliveries in real time.</p>
+
+                    <p>The project focused on improving usability, reducing friction during ordering, and creating a
+                        visually engaging experience that encourages repeat purchases.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Problem & Objective Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="grid md:grid-cols-2 gap-gutter">
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <!-- <span class="material-symbols-outlined text-primary text-4xl" data-icon="warning">warning</span> -->
+                        <h3 class="font-headline-lg text-headline-lg">The Problem</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-on-surface-variant font-body-lg text-body-lg">
+                            Ordering food should be quick and effortless, but many food delivery apps create unnecessary
+                            friction through complex navigation, overwhelming menus, and lengthy checkout processes.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3 text-on-surface-variant">
+                                <span class="text-primary font-bold">•</span>
+                                <span class="font-body-md"><strong class="text-on-surface">Complex Navigation:</strong>
+                                    Users struggled to quickly find their preferred items among large menus and
+                                    categories.</span>
+                            </li>
+                            <li class="flex gap-3 text-on-surface-variant">
+                                <span class="text-primary font-bold">•</span>
+                                <span class="font-body-md"><strong class="text-on-surface">Lengthy Checkout
+                                        Process:</strong> Multiple steps during checkout increased drop-offs and delayed
+                                    order completion.</span>
+                            </li>
+                            <li class="flex gap-3 text-on-surface-variant">
+                                <span class="text-primary font-bold">•</span>
+                                <span class="font-body-md"><strong class="text-on-surface">Poor Order
+                                        Visibility:</strong> Customers wanted clearer updates about order preparation
+                                    and delivery status.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <h3 class="font-headline-lg text-headline-lg">The Objective</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-on-surface-variant font-body-lg text-body-lg">
+                            The primary objective was to create a pizza ordering experience that feels simple,
+                            intuitive, and enjoyable.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <div
+                                class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface-container-high/50 p-3 rounded-lg border border-glass-border">
+                                <span class="material-symbols-outlined text-primary text-sm"
+                                    data-icon="check_circle">check_circle</span> Simplify menu browsing
+                            </div>
+                            <div
+                                class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface-container-high/50 p-3 rounded-lg border border-glass-border">
+                                <span class="material-symbols-outlined text-primary text-sm"
+                                    data-icon="check_circle">check_circle</span> Improve product customization
+                            </div>
+                            <div
+                                class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface-container-high/50 p-3 rounded-lg border border-glass-border">
+                                <span class="material-symbols-outlined text-primary text-sm"
+                                    data-icon="check_circle">check_circle</span> Reduce checkout friction
+                            </div>
+                            <div
+                                class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface-container-high/50 p-3 rounded-lg border border-glass-border">
+                                <span class="material-symbols-outlined text-primary text-sm"
+                                    data-icon="check_circle">check_circle</span> Provide clear order tracking
+                            </div>
+                            <div
+                                class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface-container-high/50 p-3 rounded-lg border border-glass-border col-span-full">
+                                <span class="material-symbols-outlined text-primary text-sm"
+                                    data-icon="check_circle">check_circle</span> Create a visually engaging mobile
+                                experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Process Section -->
+        <section class="px-margin-mobile md:px-margin-desktop py-section-padding max-w-container-max mx-auto">
+            <h2 class="font-headline-lg text-headline-lg mb-12 text-center">The Process</h2>
+            <div class="md:col-span-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">01</div>
+                        <h4 class="font-label-md mb-2">Research</h4>
+                        <p class="text-on-surface-variant text-label-sm">Analyzed popular food delivery apps and
+                            identified common usability issues and user expectations.</p>
+                    </div>
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">02</div>
+                        <h4 class="font-label-md mb-2">Planning</h4>
+                        <p class="text-on-surface-variant text-label-sm">Defined user flows, content hierarchy,
+                            and feature priorities for a streamlined ordering experience.</p>
+                    </div>
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">03</div>
+                        <h4 class="font-label-md mb-2">Wireframing</h4>
+                        <p class="text-on-surface-variant text-label-sm">Created low-fidelity wireframes to
+                            establish navigation patterns and screen structure.</p>
+                    </div>
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">04</div>
+                        <h4 class="font-label-md mb-2">UI Design</h4>
+                        <p class="text-on-surface-variant text-label-sm">Designed a modern interface focused on
+                            clarity, visual appeal, and ease of use.</p>
+                    </div>
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">05</div>
+                        <h4 class="font-label-md mb-2">Prototyping</h4>
+                        <p class="text-on-surface-variant text-label-sm">Built interactive prototypes to
+                            validate user journeys and interaction patterns.</p>
+                    </div>
+                    <div class="p-5 border border-glass-border rounded-xl bg-glass-fill">
+                        <div class="font-display-lg text-headline-lg text-primary/30 mb-2">06</div>
+                        <h4 class="font-label-md mb-2">Usability Testing</h4>
+                        <p class="text-on-surface-variant text-label-sm">Tested key user flows and refined
+                            screens based on feedback and usability observations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- My-role -->
+        <section
+            class="bg-surface-container py-section-padding border-y border-glass-border transition-all duration-1000 opacity-100 translate-y-0">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+                <h2 class="font-headline-lg text-headline-lg mb-12 text-primary">My Role</h2>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div
+                        class="px-8 py-4 glass-card rounded-full font-label-md text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">account_tree</span> User Flow Design
+                    </div>
+                    <div
+                        class="px-8 py-4 glass-card rounded-full font-label-md text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">grid_view</span> Wireframing
+                    </div>
+                    <div
+                        class="px-8 py-4 glass-card rounded-full font-label-md text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">palette</span> UI/UX Design
+                    </div>
+                    <div
+                        class="px-8 py-4 glass-card rounded-full font-label-md text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">auto_awesome</span> Prototyping
+                    </div>
+                    <div
+                        class="px-8 py-4 glass-card rounded-full font-label-md text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">fact_check</span>Usability Testing
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Solution & Key Features Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="max-w-container-max mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-headline-lg text-headline-lg mb-6">The Solution</h2>
+                    <p class="text-on-surface-variant font-body-lg text-body-lg">
+                        The final design delivers a streamlined pizza ordering experience through intuitive navigation,
+                        personalized customization, and real-time order tracking. The platform was designed around
+                        speed, simplicity, and visual engagement to help users complete orders with minimal effort.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                    <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group">
+                        <div
+                            class="mb-6 p-4 rounded-full bg-surface-container-high group-hover:bg-primary/20 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl" data-icon="home">home</span>
+                        </div>
+                        <h3 class="font-label-md text-label-md mb-2">Home Experience</h3>
+                        <p class="text-on-surface-variant text-label-sm">A personalized home screen showcasing featured
+                            pizzas, popular items, promotions, and quick access to categories.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group">
+                        <div
+                            class="mb-6 p-4 rounded-full bg-surface-container-high group-hover:bg-primary/20 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl" data-icon="tune">tune</span>
+                        </div>
+                        <h3 class="font-label-md text-label-md mb-2">Pizza Customization</h3>
+                        <p class="text-on-surface-variant text-label-sm">Users can customize pizza size, crust type,
+                            toppings, and add-ons through a clear and interactive interface.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group">
+                        <div
+                            class="mb-6 p-4 rounded-full bg-surface-container-high group-hover:bg-primary/20 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl"
+                                data-icon="shopping_cart">shopping_cart</span>
+                        </div>
+                        <h3 class="font-label-md text-label-md mb-2">Seamless Checkout</h3>
+                        <p class="text-on-surface-variant text-label-sm">A simplified checkout flow with saved
+                            addresses, payment methods, and order summary review.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group">
+                        <div
+                            class="mb-6 p-4 rounded-full bg-surface-container-high group-hover:bg-primary/20 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl"
+                                data-icon="distance">distance</span>
+                        </div>
+                        <h3 class="font-label-md text-label-md mb-2">Order Tracking</h3>
+                        <p class="text-on-surface-variant text-label-sm">Real-time order status updates help users track
+                            progress from preparation to delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Deep Dive & Approach Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-container">
+            <div class="max-w-container-max mx-auto grid lg:grid-cols-2 gap-20">
+                <!-- The Challenge -->
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg mb-12">The Challenge</h2>
+                    <div class="space-y-10">
+                        <div class="flex gap-6">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+                            </div>
+                            <div>
+                                <h4 class="font-label-md text-label-md mb-2">Simplifying Food Discovery</h4>
+                                <p class="text-on-surface-variant text-body-md">The menu contained multiple categories,
+                                    promotions, and customization options. The challenge was creating a structure that
+                                    helps users quickly find products without feeling overwhelmed.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary"
+                                    data-icon="credit_card">credit_card</span>
+                            </div>
+                            <div>
+                                <h4 class="font-label-md text-label-md mb-2">Optimizing Checkout Flow</h4>
+                                <p class="text-on-surface-variant text-body-md">Reducing the number of steps required to
+                                    place an order while maintaining clarity around delivery details and payment
+                                    information.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary" data-icon="layers">layers</span>
+                            </div>
+                            <div>
+                                <h4 class="font-label-md text-label-md mb-2">Maintaining Visual Consistency</h4>
+                                <p class="text-on-surface-variant text-body-md">Creating a cohesive design system that
+                                    remains consistent across product listings, customization screens, cart management,
+                                    and order tracking experiences.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Design Approach -->
+                <div class="bg-surface-container-high/30 p-10 rounded-3xl border border-glass-border">
+                    <h2 class="font-headline-lg text-headline-lg mb-10">Design Approach</h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="mt-1 material-symbols-outlined text-primary text-xl"
+                                data-icon="explore">explore</span>
+                            <div>
+                                <h5 class="font-label-md text-label-md">User-Centered Navigation</h5>
+                                <p class="text-label-sm text-on-surface-variant">Designed intuitive navigation patterns
+                                    that help users reach products quickly.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-1 material-symbols-outlined text-primary text-xl"
+                                data-icon="auto_awesome_motion">auto_awesome_motion</span>
+                            <div>
+                                <h5 class="font-label-md text-label-md">Clear Visual Hierarchy</h5>
+                                <p class="text-label-sm text-on-surface-variant">Used typography, spacing, and imagery
+                                    to improve content scanning and readability.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-1 material-symbols-outlined text-primary text-xl"
+                                data-icon="grid_view">grid_view</span>
+                            <div>
+                                <h5 class="font-label-md text-label-md">Consistent Design System</h5>
+                                <p class="text-label-sm text-on-surface-variant">Created reusable components and
+                                    standardized UI patterns throughout the app.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-1 material-symbols-outlined text-primary text-xl"
+                                data-icon="smartphone">smartphone</span>
+                            <div>
+                                <h5 class="font-label-md text-label-md">Mobile-First Experience</h5>
+                                <p class="text-label-sm text-on-surface-variant">Optimized layouts and interactions
+                                    specifically for mobile users.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-1 material-symbols-outlined text-primary text-xl"
+                                data-icon="psychology">psychology</span>
+                            <div>
+                                <h5 class="font-label-md text-label-md">Reduced Cognitive Load</h5>
+                                <p class="text-label-sm text-on-surface-variant">Minimized unnecessary choices and
+                                    simplified decision-making during ordering.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Wireframes & Design System Section -->
+        <section class="bg-surface-container-low py-section-padding px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto space-y-40">
+                <!-- Wireframes -->
+                <div class="animate-scroll">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="font-headline-lg text-headline-lg mb-6">Wireframes</h2>
+                        <p class="text-on-surface-variant font-body-md">Creating low-fidelity screens to focus on
+                            information architecture and user flows, prioritizing faster discovery and simplified
+                            checkout experiences.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div
+                            class="aspect-[9/19] bg-surface-container-highest rounded-3xl border border-glass-border p-4 flex flex-col gap-4">
+                            <div class="h-10 w-full bg-glass-fill rounded"></div>
+                            <div class="h-32 w-full bg-glass-fill rounded"></div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <div class="h-6 bg-glass-fill rounded"></div>
+                                <div class="h-6 bg-glass-fill rounded"></div>
+                                <div class="h-6 bg-glass-fill rounded"></div>
+                                <div class="h-6 bg-glass-fill rounded"></div>
+                            </div>
+                            <div class="flex-grow bg-glass-fill rounded"></div>
+                        </div>
+                        <div
+                            class="aspect-[9/19] bg-surface-container-highest rounded-3xl border border-glass-border p-4 flex flex-col gap-4">
+                            <div class="h-48 w-full bg-glass-fill rounded-2xl"></div>
+                            <div class="h-6 w-3/4 bg-glass-fill rounded"></div>
+                            <div class="space-y-2">
+                                <div class="h-4 w-full bg-glass-fill rounded"></div>
+                                <div class="h-4 w-full bg-glass-fill rounded"></div>
+                            </div>
+                            <div class="h-20 w-full bg-glass-fill rounded"></div>
+                            <div class="mt-auto h-12 w-full bg-primary/20 rounded-full"></div>
+                        </div>
+                        <div
+                            class="aspect-[9/19] bg-surface-container-highest rounded-3xl border border-glass-border p-4 flex flex-col gap-4">
+                            <div class="h-10 w-1/2 bg-glass-fill rounded mb-4"></div>
+                            <div class="space-y-4">
+                                <div class="h-20 w-full bg-glass-fill rounded-xl"></div>
+                                <div class="h-20 w-full bg-glass-fill rounded-xl"></div>
+                            </div>
+                            <div class="mt-auto border-t border-glass-border pt-4">
+                                <div class="flex justify-between mb-4">
+                                    <div class="h-4 w-16 bg-glass-fill"></div>
+                                    <div class="h-4 w-12 bg-glass-fill"></div>
+                                </div>
+                                <div class="h-12 w-full bg-primary/20 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div
+                            class="aspect-[9/19] bg-surface-container-highest rounded-3xl border border-glass-border p-4 flex flex-col gap-4">
+                            <div class="h-48 w-full bg-glass-fill rounded-2xl"></div>
+                            <div class="h-10 w-full bg-glass-fill rounded text-center"></div>
+                            <div class="space-y-4 flex-grow">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20"></div>
+                                    <div class="h-4 w-2/3 bg-glass-fill"></div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-glass-fill"></div>
+                                    <div class="h-4 w-1/2 bg-glass-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- UI Screens Showcase Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-pitch-black">
+            <div class="max-w-container-max mx-auto space-y-40">
+                <div class="text-center">
+                    <h2 class="font-headline-lg text-headline-lg mb-6">UI Showcase</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">High-fidelity interface design focusing on
+                        clarity, visual hierarchy, and tactile feedback.</p>
+                </div>
+                <!-- Home & Product -->
+                <div class="grid lg:grid-cols-2 gap-20 items-center animate-scroll">
+                    <div class="order-2 lg:order-1">
+                        <img alt="Home &amp; Details Screen" class="w-full h-auto rounded-3xl shadow-2xl"
+                            src="images/home-deepslice.png" />
+                    </div>
+                    <div class="order-1 lg:order-2 space-y-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Home Experience</h3>
+                            <p class="text-on-surface-variant font-body-lg">Intelligent category filtering combined with
+                                high-impact promotional banners ensures users find their favorites instantly. Search and
+                                popular items are placed within natural thumb-reach.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Product Details</h3>
+                            <p class="text-on-surface-variant font-body-lg">A robust customization engine allows users
+                                to swap ingredients, adjust crust types, and select portions with live price updates and
+                                visual feedback.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cart & Tracking -->
+                <div class="grid lg:grid-cols-2 gap-20 items-center animate-scroll">
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Cart &amp; Seamless Checkout</h3>
+                            <p class="text-on-surface-variant font-body-lg">Minimized friction through saved payment
+                                methods and address presets. Real-time cart editing prevents back-and-forth navigation
+                                during final steps.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Order Tracking</h3>
+                            <p class="text-on-surface-variant font-body-lg">Interactive live-status tracking from
+                                preparation to doorstep. Integrated delivery partner profiles and ETAs keep the user
+                                informed and engaged.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img alt="Checkout &amp; Tracking Screen" class="w-full h-auto rounded-3xl shadow-2xl"
+                            src="images/cart-checkout.png" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Outcome Section -->
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="glass-card relative overflow-hidden rounded-3xl p-12 md:p-20 text-center">
+                <div
+                    class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(67,76,231,0.1),transparent_70%)]">
+                </div>
+                <div class="relative z-10">
+                    <h2 class="font-headline-lg text-headline-lg mb-12">The Outcome</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-5">
+                        <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl font-label-md text-primary">
+                            Faster food discovery</div>
+                        <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl font-label-md text-primary">
+                            Simplified pizza customization</div>
+                        <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl font-label-md text-primary">
+                            Streamlined checkout process</div>
+                        <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl font-label-md text-primary">
+                            Improved order visibility</div>
+                        <div
+                            class="p-4 bg-primary/5 border border-primary/20 rounded-xl font-label-md text-primary sm:col-span-2 lg:col-span-1">
+                            Consistent mobile experience</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- The Challenge Section -->
+        <!-- <section class="bg-surface-dark py-section-padding px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <h2 class="font-headline-lg text-headline-lg text-center mb-16">The Challenge</h2>
+                <div class="flex flex-col md:flex-row gap-gutter">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-2xl bg-primary-container/10 flex items-center justify-center border border-primary/20">
+                        <span class="material-symbols-outlined text-primary" data-icon="explore">explore</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Simplifying Food
+                            Navigation</h3>
+                        <p class="text-on-surface-variant font-body-lg text-body-lg">
+                            Traditional food apps overwhelm with choices. We solved this by implementing an AI-driven
+                            "Smart Recommendation" engine that learns from past orders, significantly reducing browsing
+                            time by 40%.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-gutter">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-2xl bg-primary-container/10 flex items-center justify-center border border-primary/20">
+                        <span class="material-symbols-outlined text-primary" data-icon="credit_card">credit_card</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Improving Checkout
+                        </h3>
+                        <p class="text-on-surface-variant font-body-lg text-body-lg">
+                            We identified that the address selection step was the biggest drop-off point. By integrating
+                            high-precision location APIs and a predictive address bar, we reduced the steps to checkout
+                            from 7 to 3.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-gutter">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-2xl bg-primary-container/10 flex items-center justify-center border border-primary/20">
+                        <span class="material-symbols-outlined text-primary"
+                            data-icon="auto_awesome">auto_awesome</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Visual Consistency
+                        </h3>
+                        <p class="text-on-surface-variant font-body-lg text-body-lg">
+                            Maintaining the 'Luminous Noir' aesthetic across thousands of food items required a strict
+                            design token system and a standardized photography guidelines for merchants.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- Outcome & Conclusion Section -->
+        <!-- <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="glass-card relative overflow-hidden rounded-3xl p-12 md:p-20 text-center">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(67,76,231,0.1),transparent_70%)]"></div>
+<div class="relative z-10">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-12">The Impact</h2>
+<div class="grid md:grid-cols-2 gap-gutter mb-16">
+<div class="p-8 border-r border-glass-border">
+<div class="font-display-lg text-primary mb-2">35%</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Improved ordering speed</div>
+</div>
+<div class="p-8">
+<div class="font-display-lg text-primary mb-2">A+</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Better accessibility score</div>
+</div>
+</div>
+<div class="space-y-8">
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                            DeepSlice transformed from a simple concept into a high-performance benchmark for food delivery UI. The result is a system that isn't just about food—it's about the speed of desire.
+                        </p>
+<div class="pt-8">
+<h3 class="font-headline-lg text-headline-lg mb-6">Ready to start a project?</h3>
+<button class="px-10 py-4 bg-primary text-pitch-black rounded-full font-label-md text-label-md font-bold shadow-[0_0_30px_rgba(67,76,231,0.4)] hover:scale-105 transition-transform">Get in Touch</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main> -->
+        <!-- Footer -->
+        <footer class="bg-surface-dark py-section-padding border-t border-glass-border">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-gutter">
+                <div class="font-headline-lg text-headline-lg text-primary font-bold">Safeeda</div>
+                <!-- <div class="flex gap-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:translate-y-[-2px] transition-transform" href="#">Dribbble</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:translate-y-[-2px] transition-transform" href="#">Behance</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:translate-y-[-2px] transition-transform" href="#">LinkedIn</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:translate-y-[-2px] transition-transform" href="#">Contact</a>
+</div> -->
+                <div class="text-on-surface-variant font-body-md text-body-md">
+                    © 2026 Safeeda. All rights reserved.
+                </div>
+            </div>
+        </footer>
+        <script>
+            const torch = document.getElementById('torch');
+            window.addEventListener('mousemove', (e) => {
+                const x = e.clientX;
+                const y = e.clientY;
+                torch.style.setProperty('--x', `${x}px`);
+                torch.style.setProperty('--y', `${y}px`);
+            });
+        </script>
+        <!-- Mobile-menu -->
+        <script>
+            const menuBtn = document.getElementById("menuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            menuBtn.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+        </script>
+</body>
+
+</html>
